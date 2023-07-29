@@ -6,15 +6,6 @@ export type Posts = {
         author: string;
         title: string;
         url: string;
-        preview?: {
-          images: [
-            {
-              source: {
-                url: string;
-              };
-            },
-          ];
-        };
       };
     },
   ];

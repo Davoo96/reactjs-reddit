@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGetPostsQuery } from "../../config/reactJsApi";
+import { useGetPostsByCategoryQuery } from "../../config/reactJsApi";
 import PostNavigation from "../postNavigation";
 import PostsResults from "../postsResults";
 import { PostType } from "../postsResults/types";
@@ -7,11 +7,24 @@ import { PostType } from "../postsResults/types";
 const PostsView = () => {
   const [postType, setPostType] = useState<PostType>(PostType.HOT);
 
-  const { data, error, isLoading } = useGetPostsQuery(postType);
+  const { data, error, isLoading, isFetching } =
+    useGetPostsByCategoryQuery(postType);
 
-  if (isLoading) return <div>Loading...</div>;
+  const isLoadingState = isLoading || !data || isFetching;
 
-  if (error || !data) return <div>Oh no, there was an error</div>;
+  if (error) {
+    if ("status" in error) {
+      const errorMessage =
+        "error" in error ? error.error : JSON.stringify(error.data);
+
+      return (
+        <div>
+          <div>An error has occurred:</div>
+          <div>{errorMessage}</div>
+        </div>
+      );
+    }
+  }
 
   const handleOnClickHot = () => {
     setPostType(PostType.HOT);
@@ -31,8 +44,13 @@ const PostsView = () => {
         onClickHot={handleOnClickHot}
         onClickNews={handleOnClickNews}
         onClickRising={handleOnClickRising}
+        isDisabled={isLoadingState}
       />
-      <PostsResults children={data.children} />
+      {isLoadingState ? (
+        <div>Loading...</div>
+      ) : (
+        <PostsResults children={data.children} />
+      )}
     </>
   );
 };

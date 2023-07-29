@@ -6,13 +6,25 @@ export const reactJsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://www.reddit.com/r/reactjs/" }),
   tagTypes: ["Post"],
   endpoints: builder => ({
-    getPosts: builder.query<Posts, string>({
+    getPostsByCategory: builder.query<Posts, string>({
       query: postType => ({
         url: `${postType}.json`,
       }),
       transformResponse: (response: { data: Posts }) => response.data,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
+      providesTags: result =>
+        result
+          ? [
+              ...result.children.map(({ data }) => ({
+                type: "Post" as const,
+                id: data.id,
+              })),
+              { type: "Post", id: "LIST" },
+            ]
+          : [{ type: "Post", id: "LIST" }],
     }),
   }),
 });
 
-export const { useGetPostsQuery } = reactJsApi;
+export const { useGetPostsByCategoryQuery } = reactJsApi;

@@ -6,12 +6,14 @@ type PostNavigationProps = {
   onClickHot: () => void;
   onClickNews: () => void;
   onClickRising: () => void;
+  isDisabled: boolean;
 };
 
 const PostNavigation = ({
   onClickHot,
   onClickNews,
   onClickRising,
+  isDisabled,
 }: PostNavigationProps) => {
   const [activeStates, setActiveStates] = useState({
     hot: true,
@@ -29,6 +31,7 @@ const PostNavigation = ({
         }}
         isActive={activeStates.hot}
         type={ButtonTypes.DEFAULT}
+        isDisabled={isDisabled}
       />
       <Button
         title="News"
@@ -38,6 +41,7 @@ const PostNavigation = ({
         }}
         isActive={activeStates.news}
         type={ButtonTypes.DEFAULT}
+        isDisabled={isDisabled}
       />
       <Button
         title="Rising"
@@ -47,6 +51,7 @@ const PostNavigation = ({
         }}
         type={ButtonTypes.DEFAULT}
         isActive={activeStates.rising}
+        isDisabled={isDisabled}
       />
     </div>
   );

@@ -3,7 +3,3 @@ export enum PostType {
   NEW = "new",
   RISING = "rising",
 }
-
-export type PostsViewProps = {
-  postType: PostType;
-};
