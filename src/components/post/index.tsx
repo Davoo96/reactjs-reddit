@@ -1,6 +1,6 @@
 type PostProps = {
   title: string;
-  sentAt: string;
+  sentAt: number;
   userName: string;
   domain: string;
   img?: string;

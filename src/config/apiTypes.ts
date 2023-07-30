@@ -6,6 +6,7 @@ export type Posts = {
         author: string;
         title: string;
         url: string;
+        created_utc: number;
       };
     },
   ];

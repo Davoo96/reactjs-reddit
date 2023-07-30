@@ -1,17 +1,23 @@
-import { useState } from "react";
 import { Posts } from "../../config/apiTypes";
 import Button from "../button";
 import { ButtonTypes } from "../button/types";
 import Post from "../post";
+import getUtcDateHours from "../../lib/functions/getUtcDate";
+import { useAppDispatch } from "../../lib/customHooks/useAppDispatch";
+import { increment } from "../../modules/numberPosts/slice";
+import { useAppSelector } from "../../lib/customHooks/useAppSelector";
 
 const PostsResults = ({ children }: Posts) => {
-  const [numberPosts, setNumberPosts] = useState(9);
+  const dispatch = useAppDispatch();
+  const numberOfPostsDisplayed = useAppSelector(
+    state => state.numberPosts.displayedPosts,
+  );
 
   const handleViewMore = () => {
-    setNumberPosts(numberPosts + 5);
+    dispatch(increment());
   };
 
-  const postsToRender = children.slice(0, numberPosts);
+  const postsToRender = children.slice(0, numberOfPostsDisplayed);
 
   return (
     <div className="max-w-[1060px] my-0 mx-4 lg:mx-auto">
@@ -19,7 +25,7 @@ const PostsResults = ({ children }: Posts) => {
         <Post
           key={post.data.id}
           title={post.data.title}
-          sentAt="whatever"
+          sentAt={getUtcDateHours(post.data.created_utc)}
           userName={post.data.author}
           domain={post.data.url}
         />
@@ -31,7 +37,7 @@ const PostsResults = ({ children }: Posts) => {
           type={ButtonTypes.FULL}
           icon
           isActive
-          isDisabled={postsToRender.length === children.length}
+          isDisabled={numberOfPostsDisplayed >= children.length}
         />
       </div>
     </div>

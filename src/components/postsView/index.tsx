@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { useGetPostsByCategoryQuery } from "../../config/reactJsApi";
+import { useAppDispatch } from "../../lib/customHooks/useAppDispatch";
+import { clearPosts } from "../../modules/numberPosts/slice";
 import PostNavigation from "../postNavigation";
 import PostsResults from "../postsResults";
-import { PostType } from "../postsResults/types";
+import { PostCategory } from "../postsResults/types";
 
 const PostsView = () => {
-  const [postType, setPostType] = useState<PostType>(PostType.HOT);
+  const dispatch = useAppDispatch();
+  const [postCategory, setPostCategory] = useState<PostCategory>(
+    PostCategory.HOT,
+  );
 
   const { data, error, isLoading, isFetching } =
-    useGetPostsByCategoryQuery(postType);
+    useGetPostsByCategoryQuery(postCategory);
 
   const isLoadingState = isLoading || !data || isFetching;
 
@@ -27,15 +32,18 @@ const PostsView = () => {
   }
 
   const handleOnClickHot = () => {
-    setPostType(PostType.HOT);
+    dispatch(clearPosts());
+    setPostCategory(PostCategory.HOT);
   };
 
   const handleOnClickNews = () => {
-    setPostType(PostType.NEW);
+    dispatch(clearPosts());
+    setPostCategory(PostCategory.NEW);
   };
 
   const handleOnClickRising = () => {
-    setPostType(PostType.RISING);
+    dispatch(clearPosts());
+    setPostCategory(PostCategory.RISING);
   };
 
   return (
