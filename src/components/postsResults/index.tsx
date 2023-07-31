@@ -4,17 +4,17 @@ import { ButtonTypes } from "../button/types";
 import Post from "../post";
 import getUtcDateHours from "../../lib/functions/getUtcDate";
 import { useAppDispatch } from "../../lib/customHooks/useAppDispatch";
-import { increment } from "../../modules/numberPosts/slice";
+import { incrementPost } from "../../modules/posts/slice";
 import { useAppSelector } from "../../lib/customHooks/useAppSelector";
 
 const PostsResults = ({ children }: Posts) => {
   const dispatch = useAppDispatch();
   const numberOfPostsDisplayed = useAppSelector(
-    state => state.numberPosts.displayedPosts,
+    state => state.posts.displayedPosts,
   );
 
   const handleViewMore = () => {
-    dispatch(increment());
+    dispatch(incrementPost());
   };
 
   const postsToRender = children.slice(0, numberOfPostsDisplayed);

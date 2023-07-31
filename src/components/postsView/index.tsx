@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetPostsByCategoryQuery } from "../../config/reactJsApi";
 import { useAppDispatch } from "../../lib/customHooks/useAppDispatch";
-import { clearPosts } from "../../modules/numberPosts/slice";
+import { clearPosts } from "../../modules/posts/slice";
 import PostNavigation from "../postNavigation";
 import PostsResults from "../postsResults";
 import { PostCategory } from "../postsResults/types";
@@ -47,7 +47,7 @@ const PostsView = () => {
   };
 
   return (
-    <>
+    <div className="bg-white dark:bg-black">
       <PostNavigation
         onClickHot={handleOnClickHot}
         onClickNews={handleOnClickNews}
@@ -59,7 +59,7 @@ const PostsView = () => {
       ) : (
         <PostsResults children={data.children} />
       )}
-    </>
+    </div>
   );
 };
 

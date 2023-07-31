@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./constants";
 
-const numberPostsSlice = createSlice({
-  name: "numberPosts",
+const postsSlice = createSlice({
+  name: "posts",
   initialState,
   reducers: {
-    increment: state => {
+    incrementPost: state => {
       state.displayedPosts += 5;
     },
     clearPosts: state => {
@@ -14,6 +14,6 @@ const numberPostsSlice = createSlice({
   },
 });
 
-export const { increment, clearPosts } = numberPostsSlice.actions;
+export const { incrementPost, clearPosts } = postsSlice.actions;
 
-export default numberPostsSlice.reducer;
+export default postsSlice.reducer;

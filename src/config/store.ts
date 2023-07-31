@@ -1,18 +1,26 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {
+  PreloadedState,
+  combineReducers,
+  configureStore,
+} from "@reduxjs/toolkit";
 import { reactJsApi } from "./reactJsApi";
 
-import numberPostsReducer from "../modules/numberPosts/slice";
+import postsReducer from "../modules/posts/slice";
 
-const store = configureStore({
-  reducer: {
-    numberPosts: numberPostsReducer,
-    [reactJsApi.reducerPath]: reactJsApi.reducer,
-  },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(reactJsApi.middleware),
+const rootReducer = combineReducers({
+  posts: postsReducer,
+  [reactJsApi.reducerPath]: reactJsApi.reducer,
 });
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(reactJsApi.middleware),
+    preloadedState,
+  });
+}
 
-export default store;
+export type AppDispatch = AppStore["dispatch"];
+export type AppStore = ReturnType<typeof setupStore>;
+export type RootState = ReturnType<typeof rootReducer>;
