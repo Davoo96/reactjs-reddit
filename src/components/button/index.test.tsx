@@ -12,6 +12,7 @@ describe("Button", () => {
         type={ButtonTypes.DEFAULT}
         isActive
         icon
+        ariaLabel="Teste"
       />,
     );
 
@@ -23,7 +24,12 @@ describe("Button", () => {
 
   it("should render the correct class when the button is not active", () => {
     render(
-      <Button title="Teste" onClick={() => {}} type={ButtonTypes.DEFAULT} />,
+      <Button
+        title="Teste"
+        onClick={() => {}}
+        type={ButtonTypes.DEFAULT}
+        ariaLabel="Teste"
+      />,
     );
 
     expect(screen.getByRole("button", { name: "Teste" })).toHaveClass(
@@ -36,7 +42,12 @@ describe("Button", () => {
     const user = userEvent.setup();
 
     render(
-      <Button title="Teste" onClick={onClickSpy} type={ButtonTypes.DEFAULT} />,
+      <Button
+        title="Teste"
+        onClick={onClickSpy}
+        type={ButtonTypes.DEFAULT}
+        ariaLabel="Teste"
+      />,
     );
 
     const button = screen.getByRole("button", { name: "Teste" });
@@ -53,6 +64,7 @@ describe("Button", () => {
         onClick={() => {}}
         type={ButtonTypes.DEFAULT}
         isDisabled
+        ariaLabel="Teste"
       />,
     );
 
