@@ -12,23 +12,20 @@ const PostsView = () => {
     PostCategory.HOT,
   );
 
-  const { data, error, isLoading, isFetching } =
+  const { data, error, isLoading, isFetching, isError } =
     useGetPostsByCategoryQuery(postCategory);
 
   const isLoadingState = isLoading || !data || isFetching;
 
-  if (error) {
-    if ("status" in error) {
-      const errorMessage =
-        "error" in error ? error.error : JSON.stringify(error.data);
+  if (isError) {
+    const errorMessage = error.toString().toLowerCase();
 
-      return (
-        <div>
-          <div>An error has occurred:</div>
-          <div>{errorMessage}</div>
-        </div>
-      );
-    }
+    return (
+      <div>
+        <div>An error has occurred:</div>
+        <div>{errorMessage}</div>
+      </div>
+    );
   }
 
   const handleOnClickHot = () => {

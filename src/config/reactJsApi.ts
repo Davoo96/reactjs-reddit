@@ -3,12 +3,13 @@ import { Posts } from "./apiTypes";
 
 export const reactJsApi = createApi({
   reducerPath: "reactJsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://www.reddit.com/r/reactjs/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://www.reddit.com/r/" }),
   tagTypes: ["Post"],
   endpoints: builder => ({
     getPostsByCategory: builder.query<Posts, string>({
       query: postType => ({
-        url: `${postType}.json`,
+        url: `reactjs/${postType}.json`,
+        method: "GET",
       }),
       transformResponse: (response: { data: Posts }) => response.data,
       transformErrorResponse: (response: { status: string | number }) =>

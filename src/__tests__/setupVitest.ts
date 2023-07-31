@@ -1,8 +1,4 @@
 import "@testing-library/jest-dom";
-import { server } from "./mocks/server.js";
+import { fetch } from "cross-fetch";
 
-beforeAll(() => server.listen());
-
-afterEach(() => server.resetHandlers());
-
-afterAll(() => server.close());
+global.fetch = fetch;

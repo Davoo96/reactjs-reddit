@@ -1,7 +1,27 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import PostsResults from ".";
 import { childrenMock } from "../../__tests__/mocks/posts";
 import { renderWithProviders } from "../../__tests__/testUtils";
+import { incrementPost } from "../../modules/posts/slice";
+
+vi.mock("../../lib/customHooks/useAppDispatch", async () => {
+  const actual: object = await vi.importActual(
+    "../../lib/customHooks/useAppDispatch",
+  );
+  return {
+    ...actual,
+    useAppDispatch: () => vi.fn(),
+  };
+});
+
+vi.mock("../../modules/posts/slice", async () => {
+  const actual: object = await vi.importActual("../../modules/posts/slice");
+  return {
+    ...actual,
+    incrementPost: vi.fn(),
+  };
+});
 
 describe("PostsResults", () => {
   it("should render correctly", () => {
@@ -23,5 +43,23 @@ describe("PostsResults", () => {
           node?.textContent === `enviado há 1 horas por ${firstPost.author}`,
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Ver mais" }),
+    ).toBeInTheDocument();
+  });
+
+  it("should call incrementPost", async () => {
+    const initialMockedState = { posts: { displayedPosts: 10 } };
+    const user = userEvent.setup();
+
+    renderWithProviders(<PostsResults children={childrenMock.children} />, {
+      preloadedState: initialMockedState,
+    });
+
+    const seeMoreButton = screen.getByRole("button", { name: "Ver mais" });
+
+    await user.click(seeMoreButton);
+
+    expect(incrementPost).toHaveBeenCalledTimes(1);
   });
 });
