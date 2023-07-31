@@ -5,10 +5,13 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {
         "add-icon": "url('/src/assets/images/add-icon.svg')",
+        "sun-icon": "url('/src/assets/images/sun.svg')",
+        "moon-icon": "url('/src/assets/images/moon.svg')",
       },
       colors: {
         primary: "#6324C6",

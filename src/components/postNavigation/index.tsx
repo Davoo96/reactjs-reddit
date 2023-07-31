@@ -32,6 +32,7 @@ const PostNavigation = ({
         isActive={activeStates.hot}
         type={ButtonTypes.DEFAULT}
         isDisabled={isDisabled}
+        ariaLabel="Hot posts"
       />
       <Button
         title="News"
@@ -42,6 +43,7 @@ const PostNavigation = ({
         isActive={activeStates.news}
         type={ButtonTypes.DEFAULT}
         isDisabled={isDisabled}
+        ariaLabel="News posts"
       />
       <Button
         title="Rising"
@@ -52,6 +54,7 @@ const PostNavigation = ({
         type={ButtonTypes.DEFAULT}
         isActive={activeStates.rising}
         isDisabled={isDisabled}
+        ariaLabel="Rising posts"
       />
     </div>
   );

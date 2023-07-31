@@ -7,6 +7,7 @@ const Button = ({
   icon,
   isActive,
   isDisabled,
+  ariaLabel,
 }: ButtonProps) => (
   <button
     className={`py-3 text-center text-white text-xl font-semibold leading-normal rounded-lg disabled:bg-gray-gray ${
@@ -14,6 +15,7 @@ const Button = ({
     } ${type}`}
     onClick={onClick}
     disabled={isDisabled}
+    aria-label={ariaLabel}
   >
     <span
       className={`${

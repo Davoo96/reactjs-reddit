@@ -10,4 +10,5 @@ export type ButtonProps = {
   type: ButtonTypes;
   isActive?: boolean;
   isDisabled?: boolean;
+  ariaLabel: string;
 };

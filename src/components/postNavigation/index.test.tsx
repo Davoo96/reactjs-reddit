@@ -13,9 +13,15 @@ describe("PostNavigation", () => {
       />,
     );
 
-    expect(screen.getByRole("button", { name: "Hot" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "News" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Rising" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Hot posts" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "News posts" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Rising posts" }),
+    ).toBeInTheDocument();
   });
 
   it("should call callback when button is clicked", async () => {
@@ -34,9 +40,9 @@ describe("PostNavigation", () => {
       />,
     );
 
-    const hotButton = screen.getByRole("button", { name: "Hot" });
-    const newsButton = screen.getByRole("button", { name: "News" });
-    const risingButton = screen.getByRole("button", { name: "Rising" });
+    const hotButton = screen.getByRole("button", { name: "Hot posts" });
+    const newsButton = screen.getByRole("button", { name: "News posts" });
+    const risingButton = screen.getByRole("button", { name: "Rising posts" });
 
     await user.click(hotButton);
     await user.click(newsButton);

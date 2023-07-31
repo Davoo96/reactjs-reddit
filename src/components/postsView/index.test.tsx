@@ -48,9 +48,15 @@ describe("Post", () => {
 
     renderWithProviders(<PostsView />, { preloadedState: initialMockedState });
 
-    expect(screen.getByRole("button", { name: "Hot" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "News" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Rising" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Hot posts" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "News posts" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Rising posts" }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { level: 4, name: "Titulo 1" }),
     ).toBeInTheDocument();
@@ -87,9 +93,9 @@ describe("Post", () => {
   });
 
   it.each([
-    { buttonName: "Hot" },
-    { buttonName: "News" },
-    { buttonName: "Rising" },
+    { buttonName: "Hot posts" },
+    { buttonName: "News posts" },
+    { buttonName: "Rising posts" },
   ])("should render call app dispatch correctly", async ({ buttonName }) => {
     mockUseGetPostsByCategoryQuery.mockReturnValue({
       isLoading: false,

@@ -38,6 +38,7 @@ const PostsResults = ({ children }: Posts) => {
           icon
           isActive
           isDisabled={numberOfPostsDisplayed >= children.length}
+          ariaLabel="Ver mais posts"
         />
       </div>
     </div>

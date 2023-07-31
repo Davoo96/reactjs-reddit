@@ -44,7 +44,7 @@ describe("PostsResults", () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Ver mais" }),
+      screen.getByRole("button", { name: "Ver mais posts" }),
     ).toBeInTheDocument();
   });
 
@@ -56,7 +56,9 @@ describe("PostsResults", () => {
       preloadedState: initialMockedState,
     });
 
-    const seeMoreButton = screen.getByRole("button", { name: "Ver mais" });
+    const seeMoreButton = screen.getByRole("button", {
+      name: "Ver mais posts",
+    });
 
     await user.click(seeMoreButton);
 
